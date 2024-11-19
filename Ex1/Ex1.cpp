@@ -1,20 +1,64 @@
-// Ex1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include "Queue.h"
 #include <iostream>
+#include <sstream>
+#include <windows.h> 
 
-int main()
+
+void initQueue(Queue* q, unsigned int size)
 {
-    std::cout << "Hello World!\n";
+	q->elements = new int[size];
+	q->maxSize = size;
+	q->count = 0;
+}
+void cleanQueue(Queue* q)
+{
+	delete[] q->elements;
+	q->elements = NULL;
+}
+void enqueue(Queue* q, unsigned int newValue)
+{
+	if (q->count < q->maxSize)
+	{
+		int insertIndex = q->count;
+		q->elements[insertIndex] = newValue;
+		q->count++;
+	}
+}
+int dequeue(Queue* q) // return element in top of queue, or -1 if empty
+{
+	if (q->count == 0)
+	{
+		return -1;
+	}
+
+	int savedNum = q->elements[0];
+	for (int j = 0; j < q->count - 1; j++)
+	{
+		q->elements[j] = q->elements[j + 1];
+	}
+	q->count--;
+	return savedNum;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+bool isEmpty(Queue* s)
+{
+	if (s->count == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool isFull(Queue* s)
+{
+	if (s->count == s->maxSize)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
