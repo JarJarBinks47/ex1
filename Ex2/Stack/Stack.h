@@ -4,9 +4,9 @@
 #include "LinkedList.h"
 
 /* a positive-integer value stack, with no size limit */
-typedef struct Stack
-{
-	// Complete Definition here
+typedef struct Stack{
+	LinkedList* elements;
+	int count;
 } Stack;
 
 void push(Stack* s, unsigned int element);
@@ -17,5 +17,6 @@ void cleanStack(Stack* s);
 
 bool isEmpty(Stack* s);
 bool isFull(Stack* s);
+
 
 #endif // STACK_H
